@@ -1,0 +1,70 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'com.bmuschko.tomcat'
+
+
+
+group 'AppServices'
+version '1.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.5'
+    }
+}
+repositories {
+    mavenCentral()
+}
+
+def tomcatVersion = '7.0.59'
+
+dependencies {
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+
+    compile("org.springframework:spring-context:4.3.6.RELEASE")
+    compile 'org.springframework:spring-webmvc:4.3.6.RELEASE'
+    compile 'ch.qos.logback:logback-classic:1.2.1'
+    compile 'org.slf4j:slf4j-api:1.7.23'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.6'
+    //compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.8.6'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.6'
+
+
+    testCompile 'org.mockito:mockito-all:1.10.19'
+    testCompile("org.springframework:spring-test:4.3.6.RELEASE")
+    testCompile 'com.jayway.jsonpath:json-path:2.2.0'
+    testCompile 'com.jayway.jsonpath:json-path-assert:2.2.0'
+    //testCompile 'javax.servlet:javax.servlet-api:3.0.1'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+
+
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+
+    task copyWar(type:Copy) {
+        println new Date()
+        from('build/libs'){
+            include '**/*.war'
+        }
+        into('M:\\Dev\\Programs\\jetty-distribution-9.4.1.v20170120\\webapps')
+
+    }
+
+    war{
+        include '/*'
+        include '/WEB-INF/**'
+        include '/angular2app/dist/**'
+    }
+
+    copyWar.dependsOn(war)
+
+}
