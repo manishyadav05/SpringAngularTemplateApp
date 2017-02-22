@@ -1,0 +1,9 @@
+.force-to-bottom {
+  position:absolute;
+  bottom: 5%;
+  width: 100%;
+}
+
+.all-buffer { margin-top:200px;
+              margin-bottom:200px;
+           }

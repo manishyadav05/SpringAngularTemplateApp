@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!. Isnt that great? Yes it is great. What say you?? I say Nothing.';
+  title = 'app works!';
+  isIn = false;   // store state
+  toggleState() { // click handler
+      let bool = this.isIn;
+      this.isIn = bool === false ? true : false;
+  }
 }

@@ -55,7 +55,7 @@ dependencies {
         from('build/libs'){
             include '**/*.war'
         }
-        into('M:\\Dev\\Programs\\jetty-distribution-9.4.1.v20170120\\webapps')
+        into('D:\\Dev\\Programs\\jetty-distribution-9.4.1.v20170120\\webapps')
 
     }
 
